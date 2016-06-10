@@ -8,6 +8,7 @@
 
 #import "MYBlurIntroductionView.h"
 
+
 @implementation MYBlurIntroductionView
 @synthesize delegate;
 
@@ -72,7 +73,7 @@
     [self.LeftSkipButton setTitle:skipString forState:UIControlStateNormal];
     [self.LeftSkipButton.titleLabel setFont:kSkipButtonFont];
     [self.LeftSkipButton addTarget:self action:@selector(didPressSkipButton) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.LeftSkipButton];
+//    [self addSubview:self.LeftSkipButton];
     
     //Right Skip Button
     self.RightSkipButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -80,7 +81,7 @@
     [self.RightSkipButton.titleLabel setFont:kSkipButtonFont];
     [self.RightSkipButton setTitle:skipString forState:UIControlStateNormal];
     [self.RightSkipButton addTarget:self action:@selector(didPressSkipButton) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.RightSkipButton];
+//    [self addSubview:self.RightSkipButton];
 }
 
 -(void)buildIntroductionWithPanels:(NSArray *)panels{
@@ -143,7 +144,7 @@
         panelXOffset += panelView.frame.size.width;
     }
     
-    [self appendCloseViewAtXIndex:&panelXOffset];
+//    [self appendCloseViewAtXIndex:&panelXOffset];
     
     [self.MasterScrollView setContentSize:CGSizeMake(panelXOffset, self.frame.size.height)];
     
@@ -158,7 +159,7 @@
 
 -(void)buildScrollViewRightToLeft{
     CGFloat panelXOffset = self.frame.size.width*Panels.count;
-    [self.MasterScrollView setContentSize:CGSizeMake(panelXOffset + self.frame.size.width, self.frame.size.height)];
+    [self.MasterScrollView setContentSize:CGSizeMake(panelXOffset, self.frame.size.height)];
     
     for (MYIntroductionPanel *panelView in Panels) {
         //Update panelXOffset to next view origin location
@@ -188,17 +189,16 @@
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (self.LanguageDirection == MYLanguageDirectionLeftToRight) {
         self.CurrentPanelIndex = scrollView.contentOffset.x/self.MasterScrollView.frame.size.width;
-        
         //Trigger the finish if you are at the end
         if (self.CurrentPanelIndex == (Panels.count)) {
             //Trigger the panel didDisappear appear method in the
-            if ([Panels[self.PageControl.currentPage] respondsToSelector:@selector(panelDidDisappear)]) {
-                [Panels[self.PageControl.currentPage] panelDidDisappear];
-            }
-            if ([(id)delegate respondsToSelector:@selector(introduction:didFinishWithType:)]) {
-                [delegate introduction:self didFinishWithType:MYFinishTypeSwipeOut];
-            }
-            [self removeFromSuperview];
+//            if ([Panels[self.PageControl.currentPage] respondsToSelector:@selector(panelDidDisappear)]) {
+//                [Panels[self.PageControl.currentPage] panelDidDisappear];
+//            }
+//            if ([(id)delegate respondsToSelector:@selector(introduction:didFinishWithType:)]) {
+//                [delegate introduction:self didFinishWithType:MYFinishTypeSwipeOut];
+//            }
+//            [self removeFromSuperview];
         }
         else {
             //Assign the last page to be the previous current page
